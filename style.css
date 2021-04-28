@@ -1,0 +1,39 @@
+#canvas	{
+    /* border: 1px solid black; */
+    position: absolute;
+    /* background-color: transparent; */
+    /* margin-left: 20%;
+    margin-top: 10%; */
+    
+}
+
+#backgroundCanvas {
+    position: absolute;
+    margin:auto;
+    /* margin-left: 20%;
+    margin-top: 10%; */
+}
+
+/* .wrapper {
+    position:relative;
+    margin:auto;
+} */
+
+html {
+   margin-left: 10%;
+   
+}
+
+#title {
+    font-size: 5em;
+    font-family:Arial;
+    margin-bottom: 1%;
+    margin-left: 320px;
+}
+
+#description {
+    font-size: 2em;
+    font-family:Arial;
+    margin-bottom: 1%;
+    width: 1280px;
+}
