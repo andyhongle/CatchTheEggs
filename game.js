@@ -3,6 +3,32 @@ const context = canvas.getContext("2d");
 const canvasBack = document.getElementById("backgroundCanvas");
 const contextBack = canvasBack.getContext("2d");
 
+let musicPaused = true;
+let music = new Audio('Audio/parasail.mp3');
+music.volume = 0.1;
+music.loop = true;
+
+const musicButton = document.getElementById('musicButton');
+musicButton.addEventListener("click", musicPause)
+
+function musicPause() {
+    if (musicPaused === true) {
+        music.play();
+        music.volume = 0.5;
+        // smash.play();
+        // catchSound.play();
+        music.loop = true;
+        musicPaused = false
+
+    } else {
+        music.pause();
+        // smash.pause();
+        // catchSound.pause();
+        musicPaused = true;
+    }
+}
+
+
 //Timer for the Timeout - needed in order to clear it
 let timer;
 
@@ -21,9 +47,7 @@ for (let i = 0; i < 5; i++) {
     catchSounds.push(catchSound);
 }
 
-let music = new Audio('Audio/MarimbaBoy.wav');
-music.volume = 0.5;
-music.loop = true;
+
 
 const smashSounds = [];
 let smashCounter = 0;
@@ -40,6 +64,7 @@ let numberofEggs = 5;
 //Player constructor
 function Player() {
     this.gameOver = false;
+    this.firstTime = true;
     this.score = 0;
     this.eggsCollected = 0;
     this.eggsMissed = 0;
@@ -74,7 +99,7 @@ function Player() {
 //Egg constructor
 function Egg() {
     let min = 1
-    let max = 2.25
+    let max = 2.35
     this.eggNumber = Math.random() * (max - min) + min
     this.eggType = "";
     this.eggWidth = 50;
@@ -109,6 +134,7 @@ function Egg() {
             this.y += this.eggSpeed;
         }
         else {
+           
             smashSounds[smashCounter].play();
             if (smashCounter == 3) {
                 smashCounter = 0;
@@ -148,11 +174,9 @@ function Egg() {
         }
     }
 
-    //Randomly updates the egg speed, egg number, which defines the type of egg
-    //And also changes its x and y position on the canvas.
+    
+    //changes its x and y position on the canvas.
     this.changeState = function () {
-        // this.eggNumber = Math.floor(Math.random() * 5);
-        // this.eggSpeed = Math.floor(Math.random() * 3 + 1);
         this.x = Math.random() * (canvas.width - this.eggWidth);
         this.y = Math.random() * -canvas.height - this.eggHeight;
     }
@@ -173,7 +197,11 @@ window.addEventListener("keydown", function (e) {
     else if (e.keyCode == 39) {
         player.moveRight();
     }
-    else if (e.keyCode == 13 && player.gameOver == true) {
+    // else if (e.keyCode == 13 && player.gameOver === true) {
+    //     main();
+    //     window.clearTimeout(timer);
+    // }
+    else if (e.keyCode == 13 && player.gameOver === true) {
         main();
         window.clearTimeout(timer);
     }
@@ -199,12 +227,14 @@ function main() {
 
 function startGame() {
     updateGame();
+
     window.requestAnimationFrame(drawGame);
 }
 
 //Checks for gameOver and makes each egg in the array fall down.
 function updateGame() {
-    music.play();
+    // music.play();
+  
     if (player.eggsMissed >= 3) {
         player.gameOver = true;
     }
@@ -217,20 +247,24 @@ function updateGame() {
 
 //Draws the player and eggs on the screen as well as info in the HUD.
 function drawGame() {
-    if (player.gameOver == false) {
+    if (player.gameOver === false) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         contextBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
 
         contextBack.drawImage(background, 0, 0);
         player.render();
-
-        for (let j = 0; j < eggs.length; j++) {
-            eggs[j].render();
-        }
+        
+        
         contextBack.fillText("SCORE: " + player.score, 50, 50);
         contextBack.fillText("HIGH SCORE: " + hiscore, 250, 50);
         contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 750, 50);
         contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 1050, 50);
+       
+        
+        for (let j = 0; j < eggs.length; j++) {
+            eggs[j].render();
+        }
+    
     }
     else {
         //Different screen for game over.
@@ -249,3 +283,15 @@ function drawGame() {
     window.requestAnimationFrame(drawGame);
 
 }
+
+function welcome () {
+    if (player.firstTime === true) {
+        for (let i = 0; i < numberofEggs; i++) {
+            eggs.pop();
+        }
+        contextBack.drawImage(background, 0, 0);
+        contextBack.fillText("PRESS ENTER TO START", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
+
+    }
+}
+

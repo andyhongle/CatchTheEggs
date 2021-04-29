@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>CatchTheEggs!</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-</head>
-<header>
-    <div id='title'>CatchTheEggs!</div>
-    <div id='description'>
-        Eggs are falling from the kitchen sky! It's your job to catch
-        them before they hit the ground! Golden eggs are worth more points.
-        If 3 eggs touch the ground, game over!
-    </div>
-    <div id='controls'>
-
-    </div>
-    <!-- <div id='directions'>
-            <h2>CatchTheEggs!</h2>
-            <p>
-             
-            </p>
+    <head>
+        <title>CatchTheEggs!</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <header>
+       
+        <div id='container-left'>
+            <img src="Images/eggicon.jpeg" alt="">
         </div>
-        <div id='movement'>
-            Use left and right arrow keys to move!
-        </div> -->
-</header>
+        <div id='container-right'>
+            <div id='title'>CatchTheEggs!</div>
+            <div id='description'>
+                Eggs are falling from the kitchen sky! It's your job to catch
+                them before they hit the ground! Golden eggs are worth more points.
+                If 3 eggs touch the ground, game over!
+            </div>
+            <div id='controls'>
+                <div id='controls-text'>Use the left or right arrow keys to slide the pan.</div>
+                <img id='controls-image' src="Images/arrowkeys.png" alt="">
+            </div>
+        </div>
+       
+    </header>
+    <body>
+       
+        <canvas id="backgroundCanvas" width="1280" height="720"></canvas>
+        <canvas id="canvas" width="1280" height="720"></canvas>
+        <div id='about-container'>
+            <button id='musicButton'><img src="Images/sound.png" alt=""></button>
+            <a href=""><img id='linkedin' src="Images/linkedin-icon.png" alt=""></a>
+            <a href=""><img id='github' src="Images/github-icon.png" alt=""></a>
+        </div>
+        <script src=game.js> </script>
+      
+    </body>
+    <footer>
 
-<body>
-    <canvas id="backgroundCanvas" width="1280" height="720"></canvas>
-    <canvas id="canvas" width="1280" height="720"></canvas>
-    <script src=game.js> </script>
-
-</body>
-<footer>
-
-</footer>
-
+    </footer>
+    
 </html>
