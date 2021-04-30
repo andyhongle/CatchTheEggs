@@ -8,6 +8,7 @@ let music = new Audio('Audio/parasail.mp3');
 music.volume = 0.1;
 music.loop = true;
 
+
 const musicButton = document.getElementById('musicButton');
 musicButton.addEventListener("click", musicPause)
 
@@ -23,12 +24,13 @@ function musicPause() {
     }
 }
 
-window.onload = function () {
-    let music = new Audio('Audio/parasail.mp3');
-    music.volume = 0.1;
-    music.loop = true;
-}
+window.addEventListener("keydown", function(e) {
+    music.play()
 
+}, {once: true})
+
+
+let firstTime = true;
 
 //Timer for the Timeout - needed in order to clear it
 let timer;
@@ -41,6 +43,9 @@ let hiscore = 0;
 //can overlap with each other
 let background = new Image();
 background.src = 'Images/kitchen.jpg';
+
+
+
 let catchSounds = [];
 let catchSoundCounter = 0;
 for (let i = 0; i < 5; i++) {
@@ -49,7 +54,7 @@ for (let i = 0; i < 5; i++) {
     catchSounds.push(catchSound);
 }
 
-
+// welcome();
 
 const smashSounds = [];
 let smashCounter = 0;
@@ -67,7 +72,6 @@ let numberofEggs = 5;
 //Player constructor
 function Player() {
     this.gameOver = false;
-    this.firstTime = true;
     this.score = 0;
     this.eggsCollected = 0;
     this.eggsMissed = 0;
@@ -113,21 +117,20 @@ function Egg() {
 
     //Creates a different kind of egg depending on the egg number
     //which is generated randomly
-    this.chooseEgg = function () {
-        if (this.eggNumber >= 1 && this.eggNumber < 2) {
-            this.eggType = "whiteegg";
-            this.eggSpeed = 2.5;
-            this.eggScore = 10;
-            this.eggImage.src = 'Images/whiteegg.png';
-        }
-        else if (this.eggNumber >= 2) {
-            this.eggType = "goldenegg";
-            this.eggSpeed = 3.5;
-            this.eggScore = 50;
-            this.eggImage.src = 'Images/goldenegg.png';
-        }
-
-    }
+    // this.chooseEgg = function () {
+    //     if (this.eggNumber >= 1 && this.eggNumber < 2) {
+    //         this.eggType = "whiteegg";
+    //         this.eggSpeed = 2.5;
+    //         this.eggScore = 10;
+    //         this.eggImage.src = 'Images/whiteegg.png';
+    //     }
+    //     else if (this.eggNumber >= 2) {
+    //         this.eggType = "goldenegg";
+    //         this.eggSpeed = 3.5;
+    //         this.eggScore = 50;
+    //         this.eggImage.src = 'Images/goldenegg.png';
+    //     }
+    // }
 
     //Makes the egg descend.
     //While falling checks if the egg has been caught by the player
@@ -148,7 +151,7 @@ function Egg() {
 
             player.eggsMissed += 1;
             this.changeState();
-            this.chooseEgg();
+            // this.chooseEgg();
         }
         this.checkIfCaught();
     }
@@ -172,7 +175,7 @@ function Egg() {
                 player.eggsCollected += 1;
 
                 this.changeState();
-                this.chooseEgg();
+                // this.chooseEgg();
             }
         }
     }
@@ -200,10 +203,6 @@ window.addEventListener("keydown", function (e) {
     else if (e.keyCode == 39) {
         player.moveRight();
     }
-    // else if (e.keyCode == 13 && player.gameOver === true) {
-    //     main();
-    //     window.clearTimeout(timer);
-    // }
     else if (e.keyCode == 13 && player.gameOver === true) {
         main();
         window.clearTimeout(timer);
@@ -213,18 +212,38 @@ window.addEventListener("keydown", function (e) {
 main();
 
 //Fills an array of eggs, creates a player and starts the game
+
 function main() {
     contextBack.font = "bold 24px Arial";
     contextBack.fillStyle = "WHITE";
     player = new Player();
     eggs = [];
 
-    for (let i = 0; i < numberofEggs; i++) {
+    // for (let i = 0; i < numberofEggs; i++) {
+    //     let egg = new Egg();
+    //     egg.chooseEgg();
+    //     eggs.push(egg);
+    // }
+
+    // makes last egg a golden egg
+    for (let i = 0; i < numberofEggs - 1; i++) {
         let egg = new Egg();
-        egg.chooseEgg();
+        
+       egg.eggType = "whiteegg";
+       egg.eggSpeed = 2.5;
+       egg.eggScore = 10;
+       egg.eggImage.src = 'Images/whiteegg.png';
+       eggs.push(egg);
+    }
+    for (let i = numberofEggs; i === numberofEggs; i++) {
+        let egg = new Egg();
+        
+        egg.eggType = "goldenegg";
+        egg.eggSpeed = 3.5;
+        egg.eggScore = 50;
+        egg.eggImage.src = 'Images/goldenegg.png';
         eggs.push(egg);
     }
-
     startGame();
 }
 
@@ -235,19 +254,16 @@ function startGame() {
 
 //Checks for gameOver and makes each egg in the array fall down.
 function updateGame() {
-    
-  
-    if (player.eggsMissed >= 3) {
+    if (player.eggsMissed >= 5) {
         player.gameOver = true;
     }
 
     for (let j = 0; j < eggs.length; j++) {
         eggs[j].fall()
-        
     }
-    
     timer = window.setTimeout(updateGame, 30);
 }
+
 
 
 //Draws the player and eggs on the screen as well as info in the HUD.
@@ -290,14 +306,8 @@ function drawGame() {
 
 }
 
-function welcome () {
-    if (player.firstTime === true) {
-        for (let i = 0; i < numberofEggs; i++) {
-            eggs.pop();
-        }
-        contextBack.drawImage(background, 0, 0);
-        contextBack.fillText("PRESS ENTER TO START", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
 
-    }
-}
+
+
+
 
