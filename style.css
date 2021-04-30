@@ -10,7 +10,6 @@
 
 html {
    margin-left: 10%;
-   
 }
 
 #title {
@@ -41,9 +40,6 @@ header {
 
 #container-right {
     margin-left: 50px;
-}
-
-#container-left > img {
 }
 
 #controls-image {
