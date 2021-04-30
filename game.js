@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 const canvasBack = document.getElementById("backgroundCanvas");
 const contextBack = canvasBack.getContext("2d");
 
-let musicPaused = true;
+let musicPaused = false;
 let music = new Audio('Audio/parasail.mp3');
 music.volume = 0.1;
 music.loop = true;
@@ -14,18 +14,19 @@ musicButton.addEventListener("click", musicPause)
 function musicPause() {
     if (musicPaused === true) {
         music.play();
-        music.volume = 0.5;
-        // smash.play();
-        // catchSound.play();
         music.loop = true;
         musicPaused = false
 
     } else {
         music.pause();
-        // smash.pause();
-        // catchSound.pause();
         musicPaused = true;
     }
+}
+
+window.onload = function () {
+    let music = new Audio('Audio/parasail.mp3');
+    music.volume = 0.1;
+    music.loop = true;
 }
 
 
@@ -44,6 +45,7 @@ let catchSounds = [];
 let catchSoundCounter = 0;
 for (let i = 0; i < 5; i++) {
     let catchSound = new Audio('Audio/eggsizzle.wav');
+    catchSound.volume = 0.2;
     catchSounds.push(catchSound);
 }
 
@@ -54,6 +56,7 @@ let smashCounter = 0;
 for (let i = 0; i < 5; i++) {
     let smash = new Audio();
     smash.src = 'Audio/eggcrack.wav';
+    smash.volume = 0.2;
     smashSounds.push(smash);
 }
 
@@ -70,7 +73,7 @@ function Player() {
     this.eggsMissed = 0;
     this.playerWidth = 160;
     this.playerHeight = 90;
-    this.playerSpeed = 20;
+    this.playerSpeed = 25;
     this.x = canvas.width / 2;
     this.y = canvas.height - this.playerHeight;
     this.playerImage = new Image();
@@ -99,7 +102,7 @@ function Player() {
 //Egg constructor
 function Egg() {
     let min = 1
-    let max = 2.35
+    let max = 2.2
     this.eggNumber = Math.random() * (max - min) + min
     this.eggType = "";
     this.eggWidth = 50;
@@ -119,7 +122,7 @@ function Egg() {
         }
         else if (this.eggNumber >= 2) {
             this.eggType = "goldenegg";
-            this.eggSpeed = 3;
+            this.eggSpeed = 3.5;
             this.eggScore = 50;
             this.eggImage.src = 'Images/goldenegg.png';
         }
@@ -227,23 +230,25 @@ function main() {
 
 function startGame() {
     updateGame();
-
     window.requestAnimationFrame(drawGame);
 }
 
 //Checks for gameOver and makes each egg in the array fall down.
 function updateGame() {
-    // music.play();
+    
   
     if (player.eggsMissed >= 3) {
         player.gameOver = true;
     }
 
     for (let j = 0; j < eggs.length; j++) {
-        eggs[j].fall();
+        eggs[j].fall()
+        
     }
+    
     timer = window.setTimeout(updateGame, 30);
 }
+
 
 //Draws the player and eggs on the screen as well as info in the HUD.
 function drawGame() {
@@ -263,6 +268,7 @@ function drawGame() {
         
         for (let j = 0; j < eggs.length; j++) {
             eggs[j].render();
+            
         }
     
     }
