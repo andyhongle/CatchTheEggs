@@ -29,6 +29,11 @@ window.addEventListener("keydown", function(e) {
 
 }, {once: true})
 
+window.addEventListener("mousedown", function (e) {
+    music.play()
+
+}, { once: true })
+
 
 let firstTime = true;
 
