@@ -286,7 +286,6 @@ function drawGame() {
         contextBack.drawImage(background, 0, 0);
         contextBack.fillText("PRESS ENTER TO START", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
         context.clearRect(0, 0, canvas.width, canvas.height);
-        // firstTime = false;
     }
     else if (player.gameOver === false) {
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -298,8 +297,8 @@ function drawGame() {
         
         contextBack.fillText("SCORE: " + player.score, 25, 45);
         contextBack.fillText("HIGH SCORE: " + hiscore, 185, 45);
-        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 490, 45);
-        contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 740, 45);
+        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 520, 45);
+        contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 750, 45);
        
         
         for (let j = 0; j < eggs.length; j++) {
@@ -313,11 +312,23 @@ function drawGame() {
         for (let i = 0; i < numberofEggs; i++) {
             eggs.pop();
         }
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        contextBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
+        contextBack.drawImage(background, 0, 0);
 
+        // cant figure out why this doesnt work
         if (hiscore < player.score) {
             hiscore = player.score;
-            contextBack.fillText("NEW HIGH SCORE: " + hiscore, (canvas.width / 2) - 100, canvas.height / 2);
+            contextBack.fillText("NEW HIGH SCORE: ", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
+            console.log(player.score)
         }
+        
+        contextBack.fillText("SCORE: " + player.score, 25, 45);
+        contextBack.fillText("HIGH SCORE: " + hiscore, 185, 45);
+        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 520, 45);
+        contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 750, 45);
+       
+
         contextBack.fillText("PRESS SPACE TO RESTART", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
         context.clearRect(0, 0, canvas.width, canvas.height);
 

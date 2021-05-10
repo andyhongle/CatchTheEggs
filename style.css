@@ -10,18 +10,18 @@
 
 html {
    margin-left: 10%;
-   padding-bottom: 20%; 
+   padding-bottom: 25%; 
 }
 
 #title {
-    font-size: 3em;
+    font-size: 2em;
     font-family:Arial;
     margin-bottom: 1%;
   
 }
 
 #description, #controls-text {
-    font-size: 1.5em;
+    font-size: 1.25em;
     font-family:Arial;
     margin-bottom: 1%;
     max-width: 641px;
@@ -40,7 +40,7 @@ header {
 }
 
 #container-right {
-    margin-left: 50px;
+    /* margin-left: 1px; */
 }
 
 #controls-image {
@@ -90,5 +90,9 @@ header {
 
 #github {
     margin-top: 40px;
+}
+
+#container-left img {
+    width: 70%;
 }
 
