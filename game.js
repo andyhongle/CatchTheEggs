@@ -8,18 +8,20 @@ let music = new Audio('Audio/parasail.mp3');
 music.volume = 0.1;
 music.loop = true;
 
-
+const musicImage = document.getElementById('musicImage');
 const musicButton = document.getElementById('musicButton');
 musicButton.addEventListener("click", musicPause)
 
 function musicPause() {
     if (musicPaused === true) {
+        musicImage.src = 'Images/sound.png'
         music.play();
         music.loop = true;
         musicPaused = false
 
     } else {
         music.pause();
+        musicImage.src = 'Images/mutesound.png'
         musicPaused = true;
     }
 }
