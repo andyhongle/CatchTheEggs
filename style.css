@@ -10,27 +10,27 @@
 
 html {
    margin-left: 10%;
-   padding-bottom: 40%; 
+   padding-bottom: 20%; 
 }
 
 #title {
-    font-size: 5em;
+    font-size: 3em;
     font-family:Arial;
     margin-bottom: 1%;
   
 }
 
 #description, #controls-text {
-    font-size: 2em;
+    font-size: 1.5em;
     font-family:Arial;
     margin-bottom: 1%;
-    max-width: 941px;
+    max-width: 641px;
 }
 
 #controls {
     display: flex;
     align-items: center;
-    max-width: 941px;
+    max-width: 641px;
 }
 
 

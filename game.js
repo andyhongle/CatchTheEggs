@@ -84,7 +84,7 @@ function Player() {
     this.eggsMissed = 0;
     this.playerWidth = 160;
     this.playerHeight = 90;
-    this.playerSpeed = 33;
+    this.playerSpeed = 38;
     this.x = canvas.width / 2;
     this.y = canvas.height - this.playerHeight;
     this.playerImage = new Image();
@@ -284,8 +284,8 @@ function drawGame() {
         
         
         contextBack.fillText("SCORE: " + player.score, 25, 50);
-        contextBack.fillText("HIGH SCORE: " + hiscore, 175, 50);
-        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 500, 50);
+        contextBack.fillText("HIGH SCORE: " + hiscore, 185, 50);
+        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 490, 50);
         contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 740, 50);
        
         
