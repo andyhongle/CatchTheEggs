@@ -49,7 +49,7 @@ let hiscore = 0;
 //Arrays are needed so that the same sounds
 //can overlap with each other
 let background = new Image();
-background.src = 'Images/kitchen.jpg';
+background.src = 'Images/smallkitchen.jpeg';
 
 
 
