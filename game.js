@@ -210,18 +210,22 @@ window.addEventListener("keydown", function (e) {
     else if (e.keyCode == 39) {
         player.moveRight();
     }
-    else if (e.keyCode == 13 && player.gameOver === true) {
-        main();
+    else if (e.keyCode == 13 && firstTime === true) {
+        firstTime = false
+        main()
+        window.clearTimeout(timer);
+    }
+    else if (e.keyCode == 32 && player.gameOver === true) {
+        main()
         window.clearTimeout(timer);
     }
 });
-
+// firstVisit() 
 main();
-
 //Fills an array of eggs, creates a player and starts the game
 
 function main() {
-    contextBack.font = "bold 24px Arial";
+    contextBack.font = "bold 22px Arial";
     contextBack.fillStyle = "WHITE";
     player = new Player();
     eggs = [];
@@ -244,7 +248,7 @@ function main() {
     }
     for (let i = numberofEggs; i === numberofEggs; i++) {
         let egg = new Egg();
-        
+
         egg.eggType = "goldenegg";
         egg.eggSpeed = 3.5;
         egg.eggScore = 50;
@@ -264,7 +268,7 @@ function updateGame() {
     if (player.eggsMissed >= 5) {
         player.gameOver = true;
     }
-
+    // firstTime = false
     for (let j = 0; j < eggs.length; j++) {
         eggs[j].fall()
     }
@@ -275,7 +279,16 @@ function updateGame() {
 
 //Draws the player and eggs on the screen as well as info in the HUD.
 function drawGame() {
-    if (player.gameOver === false) {
+    if (firstTime === true) {
+        for (let i = 0; i < numberofEggs; i++) {
+            eggs.pop();
+        }
+        contextBack.drawImage(background, 0, 0);
+        contextBack.fillText("PRESS ENTER TO START", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        // firstTime = false;
+    }
+    else if (player.gameOver === false) {
         context.clearRect(0, 0, canvas.width, canvas.height);
         contextBack.clearRect(0, 0, canvasBack.width, canvasBack.height);
 
@@ -283,10 +296,10 @@ function drawGame() {
         player.render();
         
         
-        contextBack.fillText("SCORE: " + player.score, 25, 50);
-        contextBack.fillText("HIGH SCORE: " + hiscore, 185, 50);
-        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 490, 50);
-        contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 740, 50);
+        contextBack.fillText("SCORE: " + player.score, 25, 45);
+        contextBack.fillText("HIGH SCORE: " + hiscore, 185, 45);
+        contextBack.fillText("EGGS CAUGHT: " + player.eggsCollected, 490, 45);
+        contextBack.fillText("EGGS MISSED: " + player.eggsMissed, 740, 45);
        
         
         for (let j = 0; j < eggs.length; j++) {
@@ -305,13 +318,15 @@ function drawGame() {
             hiscore = player.score;
             contextBack.fillText("NEW HIGH SCORE: " + hiscore, (canvas.width / 2) - 100, canvas.height / 2);
         }
-        contextBack.fillText("PRESS ENTER TO RESTART", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
+        contextBack.fillText("PRESS SPACE TO RESTART", (canvas.width / 2) - 140, (canvas.height / 2) + 50);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
     }
     window.requestAnimationFrame(drawGame);
 
 }
+
+
 
 
 
